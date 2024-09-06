@@ -8,7 +8,8 @@ st.markdown("# Heavy Lifter Demo")
 st.sidebar.header("SQL Query Demo")
 st.write(
     """This demo illustrates the use case of querying the database using Natural 
-Language input. We're generating a dashboard in case it is needed. Have fun!"""
+Language input. Based on the input, data is returned in a tabular format or a 
+beautiful dashboard. Have fun!"""
 )
 
 # Reference doc for chat based UI
