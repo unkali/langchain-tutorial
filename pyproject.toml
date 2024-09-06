@@ -24,6 +24,7 @@ wikipedia = "^1.4.0"
 tavily-python = "^0.3.3"
 mysql-connector-python = "9.0.0"
 langchain-aws = "^0.1.17"
+streamlit = "^1.38.0"
 
 [tool.pyright]
 # https://github.com/microsoft/pyright/blob/main/docs/configuration.md
