@@ -1,21 +1,20 @@
 from operator import itemgetter
 
 from dotenv import load_dotenv
-from langchain.chains.sql_database.query import create_sql_query_chain, _strip
-from langchain_anthropic import ChatAnthropic
+from langchain.chains.sql_database.query import _strip
+from langchain_aws import ChatBedrockConverse
 from langchain_community.tools import QuerySQLDataBaseTool
 from langchain_community.utilities import SQLDatabase
-
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
-from langchain_core.runnables import RunnableLambda, RunnablePassthrough
+from langchain_core.runnables import RunnablePassthrough
 from langchain_core.tracers import ConsoleCallbackHandler
 
 # Load environment variables from .env
 load_dotenv()
 
 # connect to the database
-mysql_uri = 'mysql+mysqlconnector://root:test@localhost:59858/test'
+mysql_uri = 'mysql+mysqlconnector://root:test@localhost:59235/test'
 #  db name is test which is running on docker (Deals-API)
 
 db = SQLDatabase.from_uri(mysql_uri)
@@ -24,12 +23,10 @@ print(db.get_usable_table_names())
 print(db.get_table_info())
 
 
-llm = ChatAnthropic(
-    model="claude-3-5-sonnet-20240620",
+llm = ChatBedrockConverse(
+    model="anthropic.claude-3-5-sonnet-20240620-v1:0",
     temperature=0,
-    max_tokens=1024,
-    timeout=None,
-    max_retries=2,
+    max_tokens=None,
     # other params...
 )
 
@@ -383,7 +380,7 @@ SQL Query: {query}
 SQL Result: {result}
 Answer: 
 
-Make sure the answer is a user friendly text"""
+Make sure the answer follows the GraphQL response spec"""
 )
 
 chain = (
